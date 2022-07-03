@@ -20,7 +20,7 @@ End Code
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.DueDate)
-            <a class="nav-link" asp-area="" asp-controller ="Tasks" asp-action ="SortByDueDate">v</a>
+            <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="SortByDueDate">v</a>
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.Priority)
@@ -28,6 +28,9 @@ End Code
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.Criticality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Function(model) model.Category.CategoryName)
         </th>
         <th></th>
     </tr>
@@ -41,7 +44,7 @@ End Code
     End Code
     @<tr class=@cssClass>
         <td>
-            <span class= "alert-due">@Html.DisplayFor(Function(modelItem) item.Description)</span>
+            @Html.DisplayFor(Function(modelItem) item.Description)
         </td>
         <td>
             @Html.DisplayFor(Function(modelItem) item.DueDate)
@@ -51,6 +54,9 @@ End Code
         </td>
         <td>
             @Html.DisplayFor(Function(modelItem) item.Criticality)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.Category.CategoryName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", New With {.id = item.id}) |

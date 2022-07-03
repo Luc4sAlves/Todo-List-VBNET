@@ -42,6 +42,14 @@ End Code
             @Html.DisplayFor(Function(model) model.Criticality)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(Function(model) model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.Category.CategoryName)
+        </dd>
+
     </dl>
     @Using (Html.BeginForm())
         @Html.AntiForgeryToken()

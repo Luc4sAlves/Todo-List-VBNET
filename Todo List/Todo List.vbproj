@@ -181,7 +181,6 @@
       <DependentUpon>ToDoList_DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CategoriesController.vb" />
-    <Compile Include="Controllers\Tasks2Controller.vb" />
     <Compile Include="Controllers\TasksController.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
