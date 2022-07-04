@@ -13,6 +13,7 @@ Namespace Controllers
         Inherits System.Web.Mvc.Controller
 
         Private db As New ToDoListEntities
+        Private Searcher As String
 
         ' GET: Tasks
         Function Index() As ActionResult
@@ -119,6 +120,16 @@ Namespace Controllers
         'add a function to sort by duedate
         Function SortByDueDate(ByVal text As String) As ActionResult
             Dim tasks = db.Tasks.OrderBy(Function(t) t.DueDate).ToList()
+            Return View("Index", tasks)
+        End Function
+
+        'add a function  to search by description and due date
+        <HttpPost()>
+        <ActionName("Search")>
+        <ValidateAntiForgeryToken()>
+        Function Search(ByVal text As String) As ActionResult
+            'Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text) Or t.DueDate.ToString().Contains(text)).ToList()
+            Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text)).ToList()
             Return View("Index", tasks)
         End Function
     End Class

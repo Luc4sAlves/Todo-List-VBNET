@@ -1,12 +1,19 @@
 ﻿@ModelType IEnumerable(Of Todo_List.Task)
 @Code
-ViewData("Title") = "Index"
-Layout = "~/Views/Shared/_Layout.vbhtml"
+    ViewData("Title") = "Index"
+    Layout = "~/Views/Shared/_Layout.vbhtml"
+    Dim text As String
 End Code
 
 <div>
     <h2>To Do</h2>
-   
+    <div>
+        @Html.BeginForm("Search", "Tasks")
+            @Html.AntiForgeryToken()
+            <label><input type="text" id="text" name="text" /></label>
+            <input type = "submit" value="Search" Class="btn btn-default" />
+
+    </div>
 </div>
 
 
@@ -14,33 +21,33 @@ End Code
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.DueDate)
-            <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="SortByDueDate">v</a>
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Priority)
-            @Html.ActionLink("v", "SortByPriority", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Criticality)
-        </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Category.CategoryName)
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+                <th>
+    @Html.DisplayNameFor(Function(model) model.Description)
+            </th>
+            <th>
+    @Html.DisplayNameFor(Function(model) model.DueDate)
+                <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="SortByDueDate">v</a>
+            </th>
+            <th>
+    @Html.DisplayNameFor(Function(model) model.Priority)
+    @Html.ActionLink("v", "SortByPriority", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+            </th>
+            <th>
+    @Html.DisplayNameFor(Function(model) model.Criticality)
+            </th>
+            <th>
+    @Html.DisplayNameFor(Function(model) model.Category.CategoryName)
+            </th>
+            <th></th>
+        </tr>
 
-@For Each item In Model
+    @For Each item In Model
     @Code
         Dim cssClass = ""
         If item.DueDate < Today Then
-            cssClass = "alert-danger"
-        End If
+    cssClass = "alert-danger"
+End If
     End Code
     @<tr class=@cssClass>
         <td>
@@ -64,6 +71,6 @@ End Code
             @Html.ActionLink("Finish ✔", "Delete", New With {.id = item.id})
         </td>
     </tr>
-        Next
+            Next
 
 </table>
