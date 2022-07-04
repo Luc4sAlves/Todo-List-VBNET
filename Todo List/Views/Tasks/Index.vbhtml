@@ -2,16 +2,18 @@
 @Code
     ViewData("Title") = "Index"
     Layout = "~/Views/Shared/_Layout.vbhtml"
-    Dim text As String
 End Code
 
 <div>
     <h2>To Do</h2>
-    <div>
-        @Html.BeginForm("Search", "Tasks")
-            @Html.AntiForgeryToken()
-            <label><input type="text" id="text" name="text" /></label>
-            <input type = "submit" value="Search" Class="btn btn-default" />
+    <div class="form-inline">
+        @Using(Html.BeginForm("Search", "Tasks"))
+            @Html.AntiForgeryToken() 
+            @Html.TextBox("text")
+            @<input type = "submit" value="Search" Class="btn btn-default" />
+            Html.EndForm()
+        End Using
+         
 
     </div>
 </div>
@@ -46,8 +48,8 @@ End Code
     @Code
         Dim cssClass = ""
         If item.DueDate < Today Then
-    cssClass = "alert-danger"
-End If
+            cssClass = "alert-danger"
+        End If
     End Code
     @<tr class=@cssClass>
         <td>
