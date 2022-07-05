@@ -1,4 +1,6 @@
-﻿Public Class CriticalityOptions
+﻿Imports System.ComponentModel.DataAnnotations
+
+Public Class CriticalityOptions
     'add an id and a name
     Public Property CriticalityId As Integer
     Public Property Name As String

@@ -27,13 +27,15 @@ End Code
                 <th>
     @Html.DisplayNameFor(Function(model) model.Description)
             </th>
+                <th>
+                    @Html.DisplayNameFor(Function(model) model.DueDate)
+                    @Html.ActionLink("v", "SortByDueDate", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                    @Html.ActionLink("v", "SortByDUeDateReversed", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                </th>
             <th>
-    @Html.DisplayNameFor(Function(model) model.DueDate)
-                <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="SortByDueDate">v</a>
-            </th>
-            <th>
-    @Html.DisplayNameFor(Function(model) model.Priority)
-    @Html.ActionLink("v", "SortByPriority", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                @Html.DisplayNameFor(Function(model) model.Priority)
+                @Html.ActionLink("v", "SortByPriority", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                @Html.ActionLink("^", "SortByPriorityReversed", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
             </th>
             <th>
     @Html.DisplayNameFor(Function(model) model.Criticality)
