@@ -141,22 +141,19 @@ Namespace Controllers
         <ActionName("Search")>
         <ValidateAntiForgeryToken()>
         Function Search(ByVal text As String) As ActionResult
-            Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text)).ToList()
-            'search by category and apend it to tasks
-            Dim category = db.Categories.Where(Function(c) c.CategoryName.Contains(text)).ToList()
-            For Each c In category
-                tasks.AddRange(db.Tasks.Where(Function(t) t.CategoryId = c.id).ToList())
-            Next
+            Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text) Or t.Category.CategoryName.Contains(text) Or t.Criticality.Contains(text)).ToList()
+
             'search by due date and append it to tasks
             For Each t In db.Tasks
+                'this is separated cuz ToString wasn't running inside Where
                 Dim dateString = t.DueDate.ToString()
                 If dateString.Contains(text) And Not tasks.Contains(t) Then
                     tasks.Add(t)
                 End If
             Next
 
-
             Return View("Index", tasks)
+
         End Function
     End Class
 End Namespace

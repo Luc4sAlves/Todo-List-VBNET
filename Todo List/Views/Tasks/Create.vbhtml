@@ -2,8 +2,6 @@
 @Code
     ViewData("Title") = "Create"
     Layout = "~/Views/Shared/_Layout.vbhtml"
-    Dim options = New CriticalityOptions
-
 End Code
 
 <h3>To Do</h3>
@@ -41,10 +39,13 @@ End Code
         <div class="form-group">
             @Html.LabelFor(Function(model) model.Criticality, htmlAttributes:=New With {.class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.Criticality, New With {.htmlAttributes = New With {.class = "form-control"}})
-                @*@Html.DropDownListFor(options.options, New SelectList(options.options, "options"), htmlAttributes:=New With {.Class = "form-control"})*@
-
-                @Html.ValidationMessageFor(Function(model) model.Criticality, "", New With {.class = "text-danger"})
+                @*@Html.EditorFor(Function(model) model.Criticality, New With {.htmlAttributes = New With {.class = "form-control"}})*@
+                <select class="form-control" id="Criticality" name="Criticality">
+                    <option>Minor</option>
+                    <option>Important</option>
+                    <option>Urgent</option>
+                </select>
+                    @Html.ValidationMessageFor(Function(model) model.Criticality, "", New With {.class = "text-danger"})
             </div>
         </div>
 
