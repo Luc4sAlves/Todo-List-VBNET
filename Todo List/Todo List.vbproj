@@ -270,11 +270,6 @@
     <Content Include="Views\Categories\Details.vbhtml" />
     <Content Include="Views\Categories\Edit.vbhtml" />
     <Content Include="Views\Categories\Index.vbhtml" />
-    <Content Include="Views\Tasks2\Create.vbhtml" />
-    <Content Include="Views\Tasks2\Delete.vbhtml" />
-    <Content Include="Views\Tasks2\Details.vbhtml" />
-    <Content Include="Views\Tasks2\Edit.vbhtml" />
-    <Content Include="Views\Tasks2\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

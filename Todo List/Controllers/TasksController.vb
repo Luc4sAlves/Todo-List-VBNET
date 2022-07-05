@@ -131,18 +131,16 @@ Namespace Controllers
             Return View("Index", tasks)
         End Function
 
-        'sort by duedate reversed
         Function SortByDueDateReversed(ByVal text As String) As ActionResult
             Dim tasks = db.Tasks.OrderByDescending(Function(t) t.DueDate).ToList()
             Return View("Index", tasks)
         End Function
 
-        'add a function  to search by description and due date
+        'search by description, category and due date
         <HttpPost()>
         <ActionName("Search")>
         <ValidateAntiForgeryToken()>
         Function Search(ByVal text As String) As ActionResult
-            'Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text) Or t.DueDate.ToString().Contains(text)).ToList()
             Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text)).ToList()
             'search by category and apend it to tasks
             Dim category = db.Categories.Where(Function(c) c.CategoryName.Contains(text)).ToList()
@@ -153,7 +151,6 @@ Namespace Controllers
             For Each t In db.Tasks
                 Dim dateString = t.DueDate.ToString()
                 If dateString.Contains(text) And Not tasks.Contains(t) Then
-                    'check if tasks does not contain t already
                     tasks.Add(t)
                 End If
             Next

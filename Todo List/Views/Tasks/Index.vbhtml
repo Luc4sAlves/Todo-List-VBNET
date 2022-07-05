@@ -20,7 +20,7 @@ End Code
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("New Task", "Create", New With {.class = "btn btn-default"})
 </p>
 <table class="table">
         <tr>
@@ -29,13 +29,13 @@ End Code
             </th>
                 <th>
                     @Html.DisplayNameFor(Function(model) model.DueDate)
-                    @Html.ActionLink("v", "SortByDueDate", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
-                    @Html.ActionLink("v", "SortByDUeDateReversed", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                    @Html.ActionLink("▼", "SortByDueDate", "Tasks", New With {.area = ""}, New With {.style = "color:black;"})
+                    @Html.ActionLink("▲", "SortByDUeDateReversed", "Tasks", New With {.style = "color:black;"})
                 </th>
             <th>
                 @Html.DisplayNameFor(Function(model) model.Priority)
-                @Html.ActionLink("v", "SortByPriority", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
-                @Html.ActionLink("^", "SortByPriorityReversed", "Tasks", New With {.htmlAttributes = New With {.Class = "sort-link"}})
+                @Html.ActionLink("▼", "SortByPriority", "Tasks", New With {.style = "color:black;"})
+                @Html.ActionLink("▲", "SortByPriorityReversed", "Tasks", New With {.style = "color:black;"})
             </th>
             <th>
     @Html.DisplayNameFor(Function(model) model.Criticality)
