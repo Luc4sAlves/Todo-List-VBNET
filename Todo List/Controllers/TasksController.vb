@@ -13,10 +13,12 @@ Namespace Controllers
         Inherits System.Web.Mvc.Controller
 
         Private db As New ToDoListEntities
+        Private Searcher As String
 
         ' GET: Tasks
         Function Index() As ActionResult
-            Return View(db.Tasks.ToList())
+            Dim tasks = db.Tasks.Include(Function(t) t.Category)
+            Return View(tasks.ToList())
         End Function
 
         ' GET: Tasks/Details/5
@@ -33,6 +35,7 @@ Namespace Controllers
 
         ' GET: Tasks/Create
         Function Create() As ActionResult
+            ViewBag.CategoryId = New SelectList(db.Categories, "id", "CategoryName")
             Return View()
         End Function
 
@@ -41,12 +44,13 @@ Namespace Controllers
         'Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Create(<Bind(Include:="id,Description,DueDate,Priority,Criticality")> ByVal task As Task) As ActionResult
+        Function Create(<Bind(Include:="id,Description,DueDate,Priority,Criticality,CategoryId")> ByVal task As Task) As ActionResult
             If ModelState.IsValid Then
                 db.Tasks.Add(task)
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If
+            ViewBag.CategoryId = New SelectList(db.Categories, "id", "CategoryName", task.CategoryId)
             Return View(task)
         End Function
 
@@ -59,6 +63,7 @@ Namespace Controllers
             If IsNothing(task) Then
                 Return HttpNotFound()
             End If
+            ViewBag.CategoryId = New SelectList(db.Categories, "id", "CategoryName", task.CategoryId)
             Return View(task)
         End Function
 
@@ -67,12 +72,13 @@ Namespace Controllers
         'Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="id,Description,DueDate,Priority,Criticality")> ByVal task As Task) As ActionResult
+        Function Edit(<Bind(Include:="id,Description,DueDate,Priority,Criticality,CategoryId")> ByVal task As Task) As ActionResult
             If ModelState.IsValid Then
                 db.Entry(task).State = EntityState.Modified
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If
+            ViewBag.CategoryId = New SelectList(db.Categories, "id", "CategoryName", task.CategoryId)
             Return View(task)
         End Function
 
@@ -106,15 +112,6 @@ Namespace Controllers
             MyBase.Dispose(disposing)
         End Sub
 
-        'add a search function
-        '<HttpPost()>
-        '<ValidateAntiForgeryToken()>
-        'Function Search(ByVal text As String) As ActionResult
-        '    Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text)).ToList()
-        '    Return View("Index", tasks)
-        'End Function
-
-        'add a function to sort by priority
         Function SortByPriority(ByVal text As String) As ActionResult
             Dim tasks = db.Tasks.OrderBy(Function(t) t.Priority).ToList()
             Return View("Index", tasks)
@@ -126,5 +123,14 @@ Namespace Controllers
             Return View("Index", tasks)
         End Function
 
+        'add a function  to search by description and due date
+        <HttpPost()>
+        <ActionName("Search")>
+        <ValidateAntiForgeryToken()>
+        Function Search(ByVal text As String) As ActionResult
+            'Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text) Or t.DueDate.ToString().Contains(text)).ToList()
+            Dim tasks = db.Tasks.Where(Function(t) t.Description.Contains(text)).ToList()
+            Return View("Index", tasks)
+        End Function
     End Class
 End Namespace
