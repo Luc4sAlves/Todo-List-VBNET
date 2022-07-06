@@ -71,7 +71,6 @@ End Code
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", New With {.id = item.id}) |
-            @*@Html.ActionLink("Details", "Details", New With {.id = item.id}) |*@
             @Html.ActionLink("Finish ✔", "Delete", New With {.id = item.id})
         </td>
     </tr>

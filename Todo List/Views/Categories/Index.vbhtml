@@ -4,7 +4,7 @@ ViewData("Title") = "Index"
 Layout = "~/Views/Shared/_Layout.vbhtml"
 End Code
 
-<h2>Index</h2>
+<h2>Categories</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
